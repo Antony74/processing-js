@@ -3761,8 +3761,10 @@
     * @see popStyle
     */
     p.pushStyle = function() {
-      // Save the canvas state.
-      saveContext();
+      if (this.use3DContext === false) {
+          // Save the canvas state.
+          saveContext();
+      }
 
       p.pushMatrix();
 
@@ -3806,7 +3808,9 @@
       var oldState = styleArray.pop();
 
       if (oldState) {
-        restoreContext();
+        if (this.use3DContext === false) {
+          restoreContext();
+        }
 
         p.popMatrix();
 
